@@ -6,6 +6,7 @@ export interface DefaultUserType {
   email?: string | null;
   name?: string | null;
   randomKey: string;
+  image?: string | null;
 }
 
 declare module "next-auth" {
