@@ -1,7 +1,13 @@
-import { RegisterForm } from "./form";
 import Header from "@/components/header.component";
+import { authOptions } from "@/libs/auth";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { RegisterForm } from "./form";
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const session = await getServerSession(authOptions);
+  if (session?.user.email) redirect("/profile");
+
   return (
     <>
       <Header />
