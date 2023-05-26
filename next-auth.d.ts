@@ -9,6 +9,12 @@ export interface DefaultUserType {
   image?: string | null;
 }
 
+export interface DefaultActionReturnType<T> {
+  status: number;
+  data?: T;
+  message?: string;
+}
+
 declare module "next-auth" {
   /**
    * Returned by `useSession`, `getSession` and received as a prop on the
