@@ -1,7 +1,6 @@
 import mongoClient from "@/config/mongo";
 import { authOptions } from "@/libs/auth";
 import { Session, getServerSession } from "next-auth";
-import { NextResponse } from "next/server";
 import { DefaultUserType } from "../../../../next-auth";
 
 export async function GET() {
@@ -15,21 +14,30 @@ export async function GET() {
     });
 
     if (!user)
-      return NextResponse.json({
-        status: 1,
-        message: "User not found!",
-      });
+      return new Response(
+        JSON.stringify({
+          status: 1,
+          message: "User not found!",
+        }),
+        { status: 400 }
+      );
 
-    return NextResponse.json({
-      status: 0,
-      data: user,
-      message: "Successfully get user data",
-    });
+    return new Response(
+      JSON.stringify({
+        status: 0,
+        data: user,
+        message: "Successfully get user data",
+      }),
+      { status: 200 }
+    );
   } catch (e) {
     console.error("API Error [/api/profile] - GET: ", e);
-    return NextResponse.json({
-      status: 5,
-      message: "API Error! Something went wrong.",
-    });
+    return new Response(
+      JSON.stringify({
+        status: 5,
+        message: "API Error! Something went wrong.",
+      }),
+      { status: 500 }
+    );
   }
 }
