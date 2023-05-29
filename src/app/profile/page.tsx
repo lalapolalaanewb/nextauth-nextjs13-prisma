@@ -51,7 +51,7 @@ export default function Profile() {
                   <button
                     onClick={() =>
                       startTransition(() => {
-                        updateProfileName("test");
+                        updateProfileName("fathi");
                       })
                     }
                   >

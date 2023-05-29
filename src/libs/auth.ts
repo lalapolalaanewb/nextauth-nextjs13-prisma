@@ -1,3 +1,4 @@
+import clientMongo from "@/config/mongo";
 import type { NextAuthOptions, Session, User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -26,12 +27,21 @@ export const authOptions: NextAuthOptions = {
           throw new Error(`Password incorrect!`);
         }
 
-        return {
-          id: "1",
-          email: "fathi@gmail.com",
-          name: "fathi",
-          randomKey: "Hey cool",
-        } satisfies User;
+        // get test data from mongo 'test' collection
+        try {
+          const client = await clientMongo();
+          const testCollection = client.db().collection("test");
+          const test = await testCollection.findOne<User>({
+            email: credentials.email,
+          });
+
+          if (!test) throw new Error(`No user found!`);
+
+          return test;
+        } catch (e) {
+          console.error("Error getting test data [nextauth]: ", e);
+          throw new Error(`Error getting test data!`);
+        }
       },
     }),
   ],

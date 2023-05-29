@@ -9,6 +9,12 @@ export interface DefaultUserType {
   image?: string | null;
 }
 
+export interface APIDefaultReturnType<T> {
+  status: number;
+  data?: T;
+  message: string;
+}
+
 export interface DefaultActionReturnType<T> {
   status: number;
   data?: T;
