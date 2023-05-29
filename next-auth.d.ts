@@ -41,3 +41,11 @@ declare module "next-auth/jwt" {
     user: DefaultUserType;
   }
 }
+
+export interface TodoType {
+  _id: string;
+  title: string;
+  isCompleted: boolean;
+  created_at: Date;
+  updated_at?: Date;
+}
